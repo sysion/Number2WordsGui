@@ -7,10 +7,6 @@ import com.sysionng.numbertowords.Number2WordsUtility;
 
 public class Number2WordsApp {
 
-	//These 2 have to be static to use them in main()
-	//private Number2Words mNumber2Words = null;
-	//private static String mNumberInWords = "";
-
 	public static void main(String[] args) {
 
 		Number2Words mNumber2Words = new Number2Words(Number2WordsUtility.GetNumber());

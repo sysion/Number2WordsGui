@@ -2,8 +2,6 @@ package com.sysionng.numbertowords;
 
 import java.io.OutputStream;
 import java.lang.String;
-//import java.util.HashMap;
-//import java.util.HashSet;
 import com.sysionng.numbertowords.Number2WordsUtility;
 
 
@@ -18,11 +16,6 @@ public class Number2Words {
 	protected String ConvertNumber2Words() {
 		String num2words = "";
 		int numLength = String.valueOf(numInput).length();
-		//int numLength = (int) Math.log10(numInput) + 1;
-
-		//HashMap<Integer, String> numDict = Number2WordsUtility.mNumberDict();
-		//Set<Integer> numDictKey = new HashSet<>(); 
-		//numDictKey = numDict.keySet();
 
 		switch (numLength) {
 			default:
