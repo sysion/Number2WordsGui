@@ -40,10 +40,10 @@ public class Number2Words {
 			case 10:
 			case 11:
 			case 12:
-				//num2words = Ten2TwelveDigitsNumber(numInput);
+				num2words = Ten2TwelveDigitsNumber(numInput);
 				break;
 			case 13:
-				//num2words = Number2WordsUtility.mNumberDict(numInput);
+				num2words = Number2WordsUtility.mNumberDict(numInput);
 				break;
 			/*default:
 				num2words = numInput + " is outside range of number for this application.";
@@ -122,11 +122,9 @@ public class Number2Words {
 
 	private String Four2SixDigitsNumber(long inputNum){	//1,000 - 999,999
 		String number2words = "";
-		long hundred = 100L;
 		long thousand = 1000L;
 		String joinNumber = "and";
 		long thousandDigit = 0L;
-		long twoDigits = 0L;
 		long threeDigit = 0L;
 		int digitLen = 0;
 		String wordThousandDigit = "";
@@ -178,8 +176,6 @@ public class Number2Words {
 
 	private String Seven2NineDigitsNumber(long inputNum){	//1,000,000 - 999,999,999
 		String number2words = "";
-		long hundred = 100L;
-		long thousand = 1000L;
 		long million = 1000000L;
 		String joinNumber = "and";
 		long millionDigit = 0L;
@@ -189,28 +185,42 @@ public class Number2Words {
 		String wordSixDigit = "";
 
 		millionDigit = inputNum / million;
-		//System.out.println("millionDigit = "+millionDigit);
 		sixDigit = inputNum % million;
-		//System.out.println("sixDigit = "+sixDigit);
 
-		digitLen = (int)Math.log10(millionDigit) + 1;
+		if (millionDigit == 0){
+			wordMillionDigit = "";
+		}
+		else {
+			digitLen = (int)Math.log10(millionDigit) + 1;
 
-		if (digitLen == 1){
-			wordMillionDigit = Number2WordsUtility.mNumberDict(millionDigit) + " " + Number2WordsUtility.mNumberDict(million);
-		}
-		else if (digitLen == 2){
-			wordMillionDigit = TwoDigitsNumber(millionDigit) + " " + Number2WordsUtility.mNumberDict(million);
-		}
-		else if (digitLen == 3){
-			wordMillionDigit = ThreeDigitsNumber(millionDigit) + " " + Number2WordsUtility.mNumberDict(million);
+			if (digitLen == 1){
+				wordMillionDigit = Number2WordsUtility.mNumberDict(millionDigit) + " " + Number2WordsUtility.mNumberDict(million);
+			}
+			else if (digitLen == 2){
+				wordMillionDigit = TwoDigitsNumber(millionDigit) + " " + Number2WordsUtility.mNumberDict(million);
+			}
+			else if (digitLen == 3){
+				wordMillionDigit = ThreeDigitsNumber(millionDigit) + " " + Number2WordsUtility.mNumberDict(million);
+			}
 		}
 
 		if (sixDigit == 0){
 			wordSixDigit = "";
-			number2words = wordMillionDigit;
 		}
 		else {
 			wordSixDigit = Four2SixDigitsNumber(sixDigit);
+		}
+
+		if (millionDigit == 0 && sixDigit == 0){
+			number2words = "";
+		}
+		else if (millionDigit == 0){
+			number2words = wordSixDigit;
+		}
+		else if (sixDigit == 0){
+			number2words = wordMillionDigit;
+		}
+		else {
 			number2words = wordMillionDigit + ", " + wordSixDigit;
 		}
 		
@@ -218,7 +228,43 @@ public class Number2Words {
 	}
 
 	private String Ten2TwelveDigitsNumber(long inputNum){	//1,000,000,000 - 999,999,999,999
-		return "";
+		String number2words = "";
+		long billion = 1000000000L;
+		String joinNumber = "and";
+		long billionDigit = 0L;
+		long nineDigit = 0L;
+		int digitLen = 0;
+		String wordBillionDigit = "";
+		String wordMillionDigit = "";
+		String wordNineDigit = "";
+
+		billionDigit = inputNum / billion;
+		//System.out.println("millionDigit = "+millionDigit);
+		nineDigit = inputNum % billion;
+		//System.out.println("sixDigit = "+sixDigit);
+
+		digitLen = (int)Math.log10(billionDigit) + 1;
+
+		if (digitLen == 1){
+			wordBillionDigit = Number2WordsUtility.mNumberDict(billionDigit) + " " + Number2WordsUtility.mNumberDict(billion);
+		}
+		else if (digitLen == 2){
+			wordBillionDigit = TwoDigitsNumber(billionDigit) + " " + Number2WordsUtility.mNumberDict(billion);
+		}
+		else if (digitLen == 3){
+			wordBillionDigit = ThreeDigitsNumber(billionDigit) + " " + Number2WordsUtility.mNumberDict(billion);
+		}
+
+		if (nineDigit == 0){
+			wordNineDigit = "";
+			number2words = wordBillionDigit;
+		}
+		else {
+			wordNineDigit = Seven2NineDigitsNumber(nineDigit);
+			number2words = wordBillionDigit + ", " + wordNineDigit;
+		}
+		
+		return number2words;
 	}
 
 }//
