@@ -11,6 +11,7 @@ public class Number2WordsUtility {
 	public static String mNumberDict(long numKey) {
 		HashMap<Long, String> numberDict = new HashMap<Long, String>();
 
+		numberDict.put(0L, "zero");
 		numberDict.put(1L, "one"); 
 		numberDict.put(2L, "two"); 
 		numberDict.put(3L, "three"); 

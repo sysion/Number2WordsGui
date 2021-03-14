@@ -18,180 +18,160 @@ public class Number2Words {
 		int numLength = String.valueOf(numInput).length();
 
 		switch (numLength) {
-			default:
 			case 1:
 				num2words = Number2WordsUtility.mNumberDict(numInput);
 				break;
 			case 2:
-				num2words = TwoDigitsNumber();
+				num2words = TwoDigitsNumber(numInput);
 				break;
 			case 3:
-				num2words = ThreeDigitsNumber();
+				num2words = ThreeDigitsNumber(numInput);
 				break;
 			case 4:
 			case 5:
 			case 6:
-				num2words = Four2SixDigitsNumber();
+				num2words = Four2SixDigitsNumber(numInput);
 				break;
 			case 7:
 			case 8:
 			case 9:
-				//num2words = Seven2NineDigitsNumber();
+				num2words = Seven2NineDigitsNumber(numInput);
 				break;
 			case 10:
 			case 11:
 			case 12:
-				//num2words = Ten2TwelveDigitsNumber();
+				//num2words = Ten2TwelveDigitsNumber(numInput);
 				break;
 			case 13:
 				//num2words = Number2WordsUtility.mNumberDict(numInput);
 				break;
+			default:
+				num2words = numInput + " is outside range of number for this application.";
+				break;
 		}
 
-		/*switch (numInput) {
-			case (numInput >= numDict.get()):
-		}*/
-
-		//return String.valueOf(numInput);		//testing
 		return num2words;
 	}
 
-	private String TwoDigitsNumber(){
+	private String TwoDigitsNumber(long inputNum){	//10 - 99
 		String number2words = "";
+		long unitDigit = 0L;
+		long tensDigit = 0L;
 
-		if (numInput >= 10L && numInput <=20L){
-			number2words = Number2WordsUtility.mNumberDict(numInput);
+		if (inputNum >= 11L && inputNum <20L){
+			number2words = Number2WordsUtility.mNumberDict(inputNum);
 		}
-		else if (numInput > 20L && numInput < 100L){
-			if (numInput == 30L || numInput == 40L || numInput == 50L || 
-							numInput == 60L || numInput == 70L || numInput == 80L || numInput == 90L) {
-				number2words = Number2WordsUtility.mNumberDict(numInput);
-			}
-			else {
-				long unitDigit = numInput % 10L;
-				long tensDigit = numInput / 10L;
-				tensDigit = 10 * tensDigit;
-				number2words = Number2WordsUtility.mNumberDict(tensDigit) + " " + Number2WordsUtility.mNumberDict(unitDigit);
-			}
+		else if (inputNum == 10L || inputNum == 20L || inputNum == 30L || inputNum == 40L || inputNum == 50L || 
+							inputNum == 60L || inputNum == 70L || inputNum == 80L || inputNum == 90L) {
+				number2words = Number2WordsUtility.mNumberDict(inputNum);
+		}
+		else if (inputNum < 10L){
+			number2words = Number2WordsUtility.mNumberDict(inputNum);
+		}
+		else {
+			unitDigit = inputNum % 10L;
+			tensDigit = inputNum / 10L;
+			tensDigit = 10 * tensDigit;
+			number2words = Number2WordsUtility.mNumberDict(tensDigit) + " " + Number2WordsUtility.mNumberDict(unitDigit);
 		}
 
 		return number2words;
 	}
 
-	private String ThreeDigitsNumber(){
+	private String ThreeDigitsNumber(long inputNum){	//100 - 999
 		String number2words = "";
 		long hundred = 100L;
 		String joinNumber = "and";
+		//long unitDigit = 0L;
+		//long tensDigit = 0L;
+		long hundredDigit = 0L;
+		long twoDigits = 0L;
+		//int digitLen = 0;
+		String wordTwoDigit = "";
+		String wordHundredDigit = "";
 
-		if (numInput >= 100L && numInput < 1000L){
-			if (numInput == 100L){ 
-				long hundredDigit = numInput / 100L;
+		if (inputNum == 100L || inputNum == 200L || inputNum == 300L || inputNum == 400L || inputNum == 500L || 
+							inputNum == 600L || inputNum == 700L || inputNum == 800L || inputNum == 900L) {
+				hundredDigit = inputNum / hundred;
 				number2words = Number2WordsUtility.mNumberDict(hundredDigit) + " " + Number2WordsUtility.mNumberDict(hundred);
+		}
+		else {
+			//unitDigit = inputNum % 10L;
+			//tensDigit = inputNum % hundred;
+			//tensDigit = tensDigit - unitDigit;
+			hundredDigit = inputNum / hundred;
+			twoDigits = inputNum % hundred;
+
+			if (hundredDigit == 0){
+				wordHundredDigit = "";
 			}
 			else {
-				long hundredDigit = numInput / 100L;
-				long twoDigits = numInput - (hundredDigit * 100);
-				long unitDigit = twoDigits % 10L;
-				long tensDigit = twoDigits - unitDigit;
-
-				number2words = Number2WordsUtility.mNumberDict(hundredDigit) + " " 
-								+ Number2WordsUtility.mNumberDict(hundred) + " " 
-								+ joinNumber + " " 
-								+ Number2WordsUtility.mNumberDict(tensDigit) + " " 
-								+ Number2WordsUtility.mNumberDict(unitDigit);
+				wordHundredDigit = Number2WordsUtility.mNumberDict(hundredDigit) + " " 
+									+ Number2WordsUtility.mNumberDict(hundred) + " " ;
 			}
+
+			wordTwoDigit = " " + TwoDigitsNumber(twoDigits);
+
+			number2words = wordHundredDigit + joinNumber + wordTwoDigit;
 		}
 
 		return number2words;
 	}
 
-	private String Four2SixDigitsNumber(){
+	private String Four2SixDigitsNumber(long inputNum){	//1,000 - 999,999
 		String number2words = "";
 		long hundred = 100L;
 		long thousand = 1000L;
 		String joinNumber = "and";
 		long thousandDigit = 0L;
-		long threeDigit = 0L;
-		long hundredDigit = 0L;
+		//long hundredDigit = 0L;
+		//long tensDigit = 0L;
+		//long unitDigit = 0L;
 		long twoDigits = 0L;
-		long unitDigit = 0L;
-		long tensDigit = 0L;
+		long threeDigit = 0L;
+		int digitLen = 0;
+		//String wordUnitDigit = "";
+		//String wordTensDigit = "";
+		//String wordHundredDigit = "";
+		String wordThreeDigit = "";
 
-		if (numInput >= 1000L && numInput < 1000000L){
-			if (numInput == 1000L){ 
-				thousandDigit = numInput / 1000L;
-				number2words = Number2WordsUtility.mNumberDict(thousandDigit) + " " + Number2WordsUtility.mNumberDict(thousand);
-			}
-			else {
-				thousandDigit = numInput / 1000L;
-				threeDigit = numInput - (thousandDigit * 1000);
-				hundredDigit = threeDigit / 100L;
-				twoDigits = threeDigit - (hundredDigit * 100);
-				unitDigit = twoDigits % 10L;
-				tensDigit = twoDigits - unitDigit;
+		//unitDigit = inputNum % 10L;
+		//System.out.println("unitDigit = "+unitDigit);
+		thousandDigit = inputNum / thousand;
+		System.out.println("thousandDigit = "+thousandDigit);
 
-				int thousandLen = (int) Math.log10(thousandDigit) + 1;
+		threeDigit = inputNum % thousand;
+		//hundredDigit = threeDigit / hundred;
+		//System.out.println("hundredDigit = "+hundredDigit);
 
-				if (thousandLen == 1){
-					number2words = Number2WordsUtility.mNumberDict(thousandDigit) + " " + Number2WordsUtility.mNumberDict(thousand) + ", ";
-				}
-				else if (thousandLen == 2){
-					if (thousandDigit >= 10L && thousandDigit <=20L){
-						number2words = Number2WordsUtility.mNumberDict(thousandDigit) + " " + Number2WordsUtility.mNumberDict(thousand) + ", ";
-					}
-					else if (thousandDigit > 20L && thousandDigit < 100L){
-						hundredDigit = thousandDigit / 100L;
-						twoDigits = thousandDigit - (hundredDigit * 100);
-						unitDigit = twoDigits % 10L;
-						tensDigit = twoDigits - unitDigit;
+		//twoDigits = threeDigit % hundred;
+		//tensDigit = twoDigits - unitDigit;
+		//System.out.println("tensDigit = "+tensDigit);
 
-						number2words = number2words + Number2WordsUtility.mNumberDict(hundredDigit) + " " 
-									+ Number2WordsUtility.mNumberDict(hundred) + " " 
-									+ joinNumber + " " 
-									+ Number2WordsUtility.mNumberDict(tensDigit) + " " 
-									+ Number2WordsUtility.mNumberDict(unitDigit) + " " 
-									+ Number2WordsUtility.mNumberDict(thousand) + ", ";
-					}
-				}
-				else if (thousandLen == 3){
-					if (thousandDigit >= 100L && thousandDigit < 1000L){
-						if (thousandDigit == 100L){ 
-							hundredDigit = numInput / 100L;
-							number2words = Number2WordsUtility.mNumberDict(hundredDigit) + " " 
-											+ Number2WordsUtility.mNumberDict(hundred) + " " 
-											+ Number2WordsUtility.mNumberDict(thousand) + ", ";
-						}
-						else {
-							hundredDigit = thousandDigit / 100L;
-							twoDigits = thousandDigit - (hundredDigit * 100);
-							unitDigit = twoDigits % 10L;
-							tensDigit = twoDigits - unitDigit;
+		digitLen = (int)Math.log10(thousandDigit) + 1;
 
-							number2words = Number2WordsUtility.mNumberDict(hundredDigit) + " " 
-											+ Number2WordsUtility.mNumberDict(hundred) + " " 
-											+ joinNumber + " " 
-											+ Number2WordsUtility.mNumberDict(tensDigit) + " " 
-											+ Number2WordsUtility.mNumberDict(unitDigit) + " " 
-											+ Number2WordsUtility.mNumberDict(thousand) + ", ";
-						}
-					}
-
-				}
-
-				System.out.println("thousandDigit = "+thousandDigit);
-				System.out.println("hundredDigit = "+hundredDigit);
-				System.out.println("tensDigit = "+tensDigit);
-				System.out.println("unitDigit = "+unitDigit);
-
-				number2words = number2words + Number2WordsUtility.mNumberDict(hundredDigit) + " " 
-								+ Number2WordsUtility.mNumberDict(hundred) + " " 
-								+ joinNumber + " " 
-								+ Number2WordsUtility.mNumberDict(tensDigit) + " " 
-								+ Number2WordsUtility.mNumberDict(unitDigit);
-			}
+		if (digitLen == 1){
+			number2words = Number2WordsUtility.mNumberDict(thousandDigit) + " " + Number2WordsUtility.mNumberDict(thousand);
+		}
+		else if (digitLen == 2){
+			number2words = TwoDigitsNumber(thousandDigit) + " " + Number2WordsUtility.mNumberDict(thousand);
+		}
+		else if (digitLen == 3){
+			number2words = ThreeDigitsNumber(thousandDigit) + " " + Number2WordsUtility.mNumberDict(thousand);
 		}
 
+		wordThreeDigit = ThreeDigitsNumber(threeDigit);
+
+		number2words += ", " + wordThreeDigit;
+
+
 		return number2words;
+	}
+
+	private String Seven2NineDigitsNumber(long inputNum){	//1,000,000 - 999,999,999
+	}
+
+	private String Ten2TwelveDigitsNumber(long inputNum){	//1,000,000,000 - 999,999,999,999
 	}
 
 }//
