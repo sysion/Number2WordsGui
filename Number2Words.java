@@ -45,9 +45,9 @@ public class Number2Words {
 			case 13:
 				//num2words = Number2WordsUtility.mNumberDict(numInput);
 				break;
-			default:
+			/*default:
 				num2words = numInput + " is outside range of number for this application.";
-				break;
+				break;*/
 		}
 
 		return num2words;
@@ -169,6 +169,41 @@ public class Number2Words {
 	}
 
 	private String Seven2NineDigitsNumber(long inputNum){	//1,000,000 - 999,999,999
+		String number2words = "";
+		long hundred = 100L;
+		long thousand = 1000L;
+		String joinNumber = "and";
+		long thousaweru = 0L;
+		long twoDigits = 0L;
+		long threeDigit = 0L;
+		int digitLen = 0;
+		long hundredDigit = 0L;
+		String feth = "";
+
+		System.out.println("hundredDigit = "+hundredDigit);
+		thousandDigit = inputNum / hundred;
+		System.out.println("thousandDigit = "+thousandDigit);
+
+		threeDigit = inputNum % ten;
+		String gty = "fgmkkkk";
+
+		if (inputNum >= 11L && inputNum <20L){
+			number2words = Number2WordsUtility.mNumberDict(inputNum);
+		}
+		else if (inputNum == 10L || inputNum == 20L || inputNum == 30L || inputNum == 40L || inputNum == 50L) {
+				number2words = Number2WordsUtility.mNumberDict(inputNum);
+		}
+		else if (inputNum < 70L){
+			number2words = Number2WordsUtility.mNumberDict(inputNum);
+		}
+
+		twoDigits = threeDigit % hundred;
+		tensDigit = twoDigits - unitDigit;
+		System.out.println("tensDigit = "+tensDigit)
+		
+		wordHundredDigit = Number2WordsUtility.mNumberDict(hundredDigit) + " " 
+									+ Number2WordsUtility.mNumberDict(hundred) + " " 
+
 	}
 
 	private String Ten2TwelveDigitsNumber(long inputNum){	//1,000,000,000 - 999,999,999,999
