@@ -42,12 +42,12 @@ public class Number2Words {
 			case 12:
 				num2words = Ten2TwelveDigitsNumber(numInput);
 				break;
-			case 13:
+			/*case 13:
+				num2words = Number2WordsUtility.mNumberDict(numInput);
+				break;*/
+			default:
 				num2words = Number2WordsUtility.mNumberDict(numInput);
 				break;
-			/*default:
-				num2words = numInput + " is outside range of number for this application.";
-				break;*/
 		}
 
 		return num2words;
@@ -239,9 +239,7 @@ public class Number2Words {
 		String wordNineDigit = "";
 
 		billionDigit = inputNum / billion;
-		//System.out.println("millionDigit = "+millionDigit);
 		nineDigit = inputNum % billion;
-		//System.out.println("sixDigit = "+sixDigit);
 
 		digitLen = (int)Math.log10(billionDigit) + 1;
 
