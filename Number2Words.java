@@ -85,11 +85,8 @@ public class Number2Words {
 		String number2words = "";
 		long hundred = 100L;
 		String joinNumber = "and";
-		//long unitDigit = 0L;
-		//long tensDigit = 0L;
 		long hundredDigit = 0L;
 		long twoDigits = 0L;
-		//int digitLen = 0;
 		String wordTwoDigit = "";
 		String wordHundredDigit = "";
 
@@ -99,9 +96,6 @@ public class Number2Words {
 				number2words = Number2WordsUtility.mNumberDict(hundredDigit) + " " + Number2WordsUtility.mNumberDict(hundred);
 		}
 		else {
-			//unitDigit = inputNum % 10L;
-			//tensDigit = inputNum % hundred;
-			//tensDigit = tensDigit - unitDigit;
 			hundredDigit = inputNum / hundred;
 			twoDigits = inputNum % hundred;
 
@@ -132,48 +126,16 @@ public class Number2Words {
 		long thousand = 1000L;
 		String joinNumber = "and";
 		long thousandDigit = 0L;
-		//long hundredDigit = 0L;
-		//long tensDigit = 0L;
-		//long unitDigit = 0L;
 		long twoDigits = 0L;
 		long threeDigit = 0L;
 		int digitLen = 0;
-		//String wordUnitDigit = "";
-		//String wordTensDigit = "";
 		String wordThousandDigit = "";
 		String wordThreeDigit = "";
 
-		//unitDigit = inputNum % 10L;
-		//System.out.println("unitDigit = "+unitDigit);
 		thousandDigit = inputNum / thousand;
-		//System.out.println("thousandDigit = "+thousandDigit);
 
 		threeDigit = inputNum % thousand;
-		//hundredDigit = threeDigit / hundred;
-		//System.out.println("hundredDigit = "+hundredDigit);
-
-		//twoDigits = threeDigit % hundred;
-		//tensDigit = twoDigits - unitDigit;
-		//System.out.println("tensDigit = "+tensDigit);
-
-
-		/*digitLen = (int)Math.log10(thousandDigit) + 1;
-
-		if (digitLen == 1){
-			number2words = Number2WordsUtility.mNumberDict(thousandDigit) + " " + Number2WordsUtility.mNumberDict(thousand);
-		}
-		else if (digitLen == 2){
-			number2words = TwoDigitsNumber(thousandDigit) + " " + Number2WordsUtility.mNumberDict(thousand);
-		}
-		else if (digitLen == 3){
-			number2words = ThreeDigitsNumber(thousandDigit) + " " + Number2WordsUtility.mNumberDict(thousand);
-		}
-
-		wordThreeDigit = ThreeDigitsNumber(threeDigit);
-
-		number2words += ", " + wordThreeDigit;*/
-
-
+	
 		if (thousandDigit == 0){
 			wordThousandDigit = "";
 		}
@@ -189,19 +151,26 @@ public class Number2Words {
 			else if (digitLen == 3){
 				wordThousandDigit = ThreeDigitsNumber(thousandDigit) + " " + Number2WordsUtility.mNumberDict(thousand);
 			}
+		}
+		
+		if (threeDigit == 0){
+			wordThreeDigit = "";
+		}
+		else {
+			wordThreeDigit = ThreeDigitsNumber(threeDigit);
+		}
 
-			//wordThreeDigit = ThreeDigitsNumber(threeDigit);
-
-			if (threeDigit == 0){
-				wordThreeDigit = "";
-				number2words = wordThousandDigit;
-			}
-			else {
-				wordThreeDigit = ThreeDigitsNumber(threeDigit);
-				number2words = wordThousandDigit + ", " + wordThreeDigit;
-			}
-
-			//number2words = wordThousandDigit + wordThreeDigit;
+		if (thousandDigit == 0 && threeDigit == 0){
+			number2words = "";
+		}
+		else if (thousandDigit == 0){
+			number2words = wordThreeDigit;
+		}
+		else if (threeDigit == 0){
+			number2words = wordThousandDigit;
+		}
+		else {
+			number2words = wordThousandDigit + ", " + wordThreeDigit;
 		}
 
 		return number2words;
@@ -220,7 +189,9 @@ public class Number2Words {
 		String wordSixDigit = "";
 
 		millionDigit = inputNum / million;
+		//System.out.println("millionDigit = "+millionDigit);
 		sixDigit = inputNum % million;
+		//System.out.println("sixDigit = "+sixDigit);
 
 		digitLen = (int)Math.log10(millionDigit) + 1;
 
@@ -234,8 +205,6 @@ public class Number2Words {
 			wordMillionDigit = ThreeDigitsNumber(millionDigit) + " " + Number2WordsUtility.mNumberDict(million);
 		}
 
-		//wordSixDigit = Four2SixDigitsNumber(sixDigit);
-
 		if (sixDigit == 0){
 			wordSixDigit = "";
 			number2words = wordMillionDigit;
@@ -244,8 +213,6 @@ public class Number2Words {
 			wordSixDigit = Four2SixDigitsNumber(sixDigit);
 			number2words = wordMillionDigit + ", " + wordSixDigit;
 		}
-
-		//number2words += ", " + wordSixDigit;
 		
 		return number2words;
 	}
