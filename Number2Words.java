@@ -1,8 +1,8 @@
-package com.sysionng.numbertowords;
+package com.sysionng.numbertowordsgui;
 
 import java.io.OutputStream;
 import java.lang.String;
-import com.sysionng.numbertowords.Number2WordsUtility;
+import com.sysionng.numbertowordsgui.Number2WordsUtility;
 
 
 public class Number2Words {

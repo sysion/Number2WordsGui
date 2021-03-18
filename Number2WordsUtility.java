@@ -1,4 +1,4 @@
-package com.sysionng.numbertowords;
+package com.sysionng.numbertowordsgui;
 
 import java.io.OutputStream;
 import java.util.Scanner;
@@ -50,42 +50,19 @@ public class Number2WordsUtility {
 			return numKey + " is outside range of number for this application.";
 	}
 
-	public static long GetNumber() {
-		long inpNumber = -1;
-		String tmpNumber = "";
+	public static long GetNumber(String textNumber) {
+		long inpNumber = 0;
 
-		Scanner scanner = new Scanner(System.in);
-		
-		System.out.println("Type number to convert (or q to exit) and press Enter.");
+		try {
+	        inpNumber = Long.parseLong(textNumber);
+	    } catch (NumberFormatException e) {
+	        //System.out.println("Couldn't parse input to Number format : " + e);
+	        inpNumber = -1;
+	    }
 
-		while (scanner.hasNext()) {
-			tmpNumber = scanner.nextLine().trim();
-
-			if (tmpNumber.equals("q")) {
-				break;
-			}
-			else if (tmpNumber.equals("")) {
-				System.out.println("Input number can not be empty !!!");
-				break;
-			}
-			else {
-				
-				try {
-			        inpNumber = Long.parseLong(tmpNumber);
-					break;
-			    } catch (NumberFormatException e) {
-			        System.out.println("Couldn't parse input to Number format : " + e);
-			    }
-
-			}
-		}
-
-		if (inpNumber == -1){
-			System.out.println("No valid input, exiting . . .");
-			System.exit(0);
-		}
-
-		return inpNumber;
+	    //return Long.parseLong(textNumber);
+	    return inpNumber;
 	}
+
 
 }
